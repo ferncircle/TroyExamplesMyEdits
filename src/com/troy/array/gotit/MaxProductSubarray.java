@@ -21,32 +21,24 @@ the contiguous subarray [2,3] has the largest product = 6.
  */
 public class MaxProductSubarray {
 
-    public int maxProduct(int[] nums) {
-        int min = 1;
-        int max = 1;
-        int maxSoFar = nums[0];
-        for (int i = 0; i < nums.length; i++) {
-            if (nums[i] > 0) {
-                max = max * nums[i];
-                min = Math.min(min * nums[i], 1);
-                maxSoFar = Math.max(maxSoFar, max);
-            } else if (nums[i] == 0) {
-                min = 1;
-                max = 1;
-                maxSoFar = Math.max(maxSoFar, 0);
-            } else {
-                int t = max * nums[i];
-                maxSoFar = Math.max(maxSoFar, min * nums[i]);
-                max = Math.max(1, min*nums[i]);
-                min = t;
-            }
-        }
-        return maxSoFar;
-    }
-    
-    public static void main(String args[]){
-        MaxProductSubarray mps = new MaxProductSubarray();
-        int input[] = {-6, -3, 8, -9, -1, -1, 3, 6, 9, 0, 3, -1};
-        System.out.println(mps.maxProduct(input));
-    }
+	public int maxProduct(int[] nums) {
+		int product=nums[0],max=nums[0],min=nums[0];
+
+		for(int i=1;i<nums.length;i++){
+			int cur=nums[i];
+			int temp=max;
+			max=Math.max(Math.max(max*cur,min*cur),cur);
+			min=Math.min(Math.min(temp*cur,min*cur),cur);
+
+			product=Math.max(product,max);
+		}
+
+		return product;
+	}
+
+	public static void main(String args[]){
+		MaxProductSubarray mps = new MaxProductSubarray();
+		int input[] = {-6, -3, 8, -9, -1, -1, 3, 6, 9, 0, 3, -1};
+		System.out.println(mps.maxProduct(input));
+	}
 }

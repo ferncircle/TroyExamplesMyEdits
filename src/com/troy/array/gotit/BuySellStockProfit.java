@@ -1,4 +1,4 @@
-package com.troy.array;
+package com.troy.array.gotit;
 
 /**
  * Date 03/04/2016

@@ -36,7 +36,7 @@ We can 330 by rotating array 9 times.
  * Calculate 1) R0=0*a[0]+1*a[1].....
  * 2) R1= 0*a[n-1]+1*a[0]....
  * After subtracting,
- * R1-R0=arrSum-n*a[n-j] where j=1 for thise case
+ * R1-R0=arrSum-n*a[n-j] where j=1 for this case
  * 
  * Use this formula to get value of next rotation from current rotation. O(n)
  * 

@@ -1,8 +1,8 @@
-package com.troy.array;
+package com.troy.array.gotit;
 
 /**
  * http://www.geeksforgeeks.org/maximum-contiguous-circular-sum/
- * Given n numbers (both +ve and -ve), arranged in a circle, fnd the maximum sum of consecutive number. 
+ * Given n numbers (both +ve and -ve), arranged in a circle, find the maximum sum of consecutive number. 
 
 Examples:
 

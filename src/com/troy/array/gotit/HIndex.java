@@ -1,4 +1,4 @@
-package com.troy.array;
+package com.troy.array.gotit;
 
 /**
  * Given an array of citations (each citation is a non-negative integer) of a researcher, write a function to 

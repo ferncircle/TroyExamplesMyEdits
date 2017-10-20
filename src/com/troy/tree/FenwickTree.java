@@ -1,5 +1,8 @@
 package com.troy.tree;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 /**
  * Date 04/27/2015
  * @author tusroy
@@ -64,7 +67,10 @@ public class FenwickTree {
      * 3) Subtract that from index
      */
     private int getParent(int index){
-        return index - (index & -index);
+        //int parentIndex= index - (index & -index);
+        int parentIndex= index - Integer.lowestOneBit(index);
+        
+        return parentIndex;
     }
     
     /**
@@ -74,19 +80,23 @@ public class FenwickTree {
      * 3) Add it to index
      */
     private int getNext(int index){
-        return index + (index & -index);
+        //int nextIndex= index + (index & -index); 
+        int nextIndex= index + Integer.lowestOneBit(index);
+        return nextIndex;
     }
     
     public static void main(String args[]){
         int input[] = {1,2,3,4,5,6,7};
         FenwickTree ft = new FenwickTree();
         int binaryIndexedTree[] = ft.createTree(input);
-        assert 1 == ft.getSum(binaryIndexedTree, 0);
-        assert 3 == ft.getSum(binaryIndexedTree, 1);
-        assert 6 == ft.getSum(binaryIndexedTree, 2);
-        assert 10 == ft.getSum(binaryIndexedTree, 3);
-        assert 15 == ft.getSum(binaryIndexedTree, 4);
-        assert 21 == ft.getSum(binaryIndexedTree, 5);
-        assert 28 == ft.getSum(binaryIndexedTree, 6);
+        assertThat(ft.getSum(binaryIndexedTree, 0), is(1));
+        assertThat(ft.getSum(binaryIndexedTree, 1), is(3));
+        assertThat(ft.getSum(binaryIndexedTree, 2), is(6));
+        assertThat(ft.getSum(binaryIndexedTree, 4), is(15));
+        assertThat(ft.getSum(binaryIndexedTree, 5), is(21));
+        assertThat(ft.getSum(binaryIndexedTree, 6), is(28));
+        
+        
+        System.out.println("all cases passed");
     }
 }

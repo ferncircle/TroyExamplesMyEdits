@@ -10,53 +10,51 @@ import java.util.concurrent.locks.ReentrantReadWriteLock;
 public class PrintInSequence {
 
     private volatile int val = 0;
-    private volatile boolean shouldPrint = true;
+    private volatile boolean printing = true;
     private volatile boolean isIncreasing = true;
     private ReentrantReadWriteLock.WriteLock lock = new ReentrantReadWriteLock().writeLock();
-    public void increment() {
-        lock.lock();
-        if (!shouldPrint && isIncreasing) {
+    public synchronized void increment() {
+        //lock.lock();
+        if (!printing && isIncreasing) {
             val = val + 1;
             if (val == 5) {
                 isIncreasing = false;
             }
-            shouldPrint = true;
+            printing = true;
         }
-        lock.unlock();
+        //lock.unlock();
     }
 
-    public void decrement() {
-        lock.lock();
-        if (!shouldPrint && !isIncreasing) {
+    public synchronized void decrement() {
+        //lock.lock();
+        if (!printing && !isIncreasing) {
             val = val - 1;
             if (val == 0) {
                 isIncreasing = true;
             }
-            shouldPrint = true;
+            printing = true;
         }
-        lock.unlock();
+        //lock.unlock();
     }
 
     //only one thread is calling print. So no contention in updating shouldPrint flag.
-    public void printVar() {
-        if (shouldPrint) {
+    public synchronized void printVar() {
+        if (printing) {
             System.out.println(val);
-            shouldPrint = false;
+            printing = false;
         }
     }
 
     public static void main(String args[]) {
         PrintInSequence printInSequence = new PrintInSequence();
-        Thread t1 = new Thread(printInSequence::runIncrement);
-        t1.start();
-        Thread t2 = new Thread(printInSequence::runIncrement);
-        t2.start();
-        Thread t3 = new Thread(printInSequence::runPrint);
-        t3.start();
-        Thread t4 = new Thread(printInSequence::runDecrement);
-        t4.start();
-        Thread t5 = new Thread(printInSequence::runDecrement);
-        t5.start();
+        new Thread(printInSequence::runIncrement).start();
+        new Thread(printInSequence::runIncrement).start();
+        
+        //new Thread(printInSequence::runPrint).start();
+        new Thread(() -> printInSequence.runPrint()).start(); //other way of running it
+        
+        new Thread(printInSequence::runDecrement).start();
+        new Thread(printInSequence::runDecrement).start();
     }
 
     private void runIncrement() {

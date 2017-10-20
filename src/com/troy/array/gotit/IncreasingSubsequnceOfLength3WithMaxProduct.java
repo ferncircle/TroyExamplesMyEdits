@@ -1,4 +1,4 @@
-package com.troy.array;
+package com.troy.array.gotit;
 
 import java.util.TreeSet;
 

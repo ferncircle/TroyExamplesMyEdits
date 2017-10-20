@@ -53,7 +53,7 @@ public class MaximumHistogram {
                 if(stack.isEmpty()){
                     area = input[top] * i;
                 }
-                //if stack is not empty then everythin from i-1 to input.peek() + 1
+                //if stack is not empty then everything from i-1 to input.peek() + 1
                 //has to be greater or equal to input[top]
                 //so area = input[top]*(i - stack.peek() - 1);
                 else{
@@ -87,7 +87,7 @@ public class MaximumHistogram {
     
     public static void main(String args[]){
         MaximumHistogram mh = new MaximumHistogram();
-        int input[] = {2,2,2,6,1,5,4,2,2,2,2};
+        int input[] = {6,2,5,4,5,1,6};
         int maxArea = mh.maxHistogram(input);
         //System.out.println(maxArea);
         assert maxArea == 12;

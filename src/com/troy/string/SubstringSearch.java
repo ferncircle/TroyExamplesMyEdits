@@ -1,5 +1,8 @@
 package com.troy.string;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
+
 /**
  * Date 09/22/2014
  * @author tusroy
@@ -18,18 +21,17 @@ public class SubstringSearch {
         int i=0;
         int j=0;
         int k = 0;
-        while(i < text.length && j < pattern.length){
+        while(i < text.length){
             if(text[i] == pattern[j]){
                 i++;
                 j++;
+                if(j == pattern.length)
+                    return true;   
             }else{
                 j=0;
                 k++;
                 i = k;
             }
-        }
-        if(j == pattern.length){
-            return true;
         }
         return false;
     }
@@ -66,31 +68,31 @@ public class SubstringSearch {
         int lps[] = computeTemporaryArray(pattern);
         int i=0;
         int j=0;
-        while(i < text.length && j < pattern.length){
+        while(i < text.length)
             if(text[i] == pattern[j]){
                 i++;
                 j++;
-            }else{
-                if(j!=0){
-                    j = lps[j-1];
-                }else{
-                    i++;
-                }
-            }
-        }
-        if(j == pattern.length){
-            return true;
-        }
+                if(j == pattern.length)
+                    return true;                
+            }else if(j==0)
+            	i++;
+            else
+            	j=lps[j-1];
+        
+        
         return false;
     }
         
     public static void main(String args[]){
         
-        String str = "abcxabcdabcdabcy";
-        String subString = "abcdabcy";
-        SubstringSearch ss = new SubstringSearch();
-        boolean result = ss.KMP(str.toCharArray(), subString.toCharArray());
-        System.out.print(result);
+    	 assertThat(new SubstringSearch().hasSubstring("abcxabcdabcdabcy".toCharArray(), "abcdabcy".toCharArray()), is(true));
+         assertThat(new SubstringSearch().hasSubstring("abcxabcdabcdabcy".toCharArray(), "abcda1".toCharArray()), is(false));
+         
+                
+        assertThat(new SubstringSearch().KMP("abcxabcdabcdabcy".toCharArray(), "abcdabcy".toCharArray()), is(true));
+        assertThat(new SubstringSearch().KMP("abcxabcdabcdabcy".toCharArray(), "abcda1".toCharArray()), is(false));
+        
+        System.out.println("all cases passed");
         
     }
 }

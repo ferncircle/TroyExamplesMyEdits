@@ -81,7 +81,7 @@ public class TextJustification {
 
     public String justify(String words[], int width) {
         
-        int cost[][] = new int[words.length][words.length];
+        int spaceLeft[][] = new int[words.length][words.length];
         System.out.println("line width="+width);
         System.out.println(Arrays.toString(words));
         System.out.println();
@@ -90,24 +90,24 @@ public class TextJustification {
         //i to j in one line. If words don't fit in one line then we put
         //Integer.MAX_VALUE there.
         for(int i=0 ; i < words.length; i++){
-            cost[i][i] = width - words[i].length();
+            spaceLeft[i][i] = width - words[i].length();
             for(int j=i+1; j < words.length; j++){
-                cost[i][j] = cost[i][j-1] - words[j].length() - 1; 
+                spaceLeft[i][j] = spaceLeft[i][j-1] - words[j].length() - 1; 
             }
         }
-        ArrayUtils.print(cost);
+        ArrayUtils.print(spaceLeft);
         System.out.println();
         for(int i=0; i < words.length; i++){
             for(int j=i; j < words.length; j++){
-                if(cost[i][j] < 0){
-                    cost[i][j] = Integer.MAX_VALUE;
+                if(spaceLeft[i][j] < 0){
+                    spaceLeft[i][j] = Integer.MAX_VALUE;
                 }else{
-                    cost[i][j] = (int)Math.pow(cost[i][j], 2);
+                    spaceLeft[i][j] = (int)Math.pow(spaceLeft[i][j], 2);
                 }
             }
         }
         
-        ArrayUtils.print(cost);
+        ArrayUtils.print(spaceLeft);
         System.out.println();
         //minCost from i to len is found by trying
         //j between i to len and checking which
@@ -115,14 +115,14 @@ public class TextJustification {
         int minCost[] = new int[words.length];
         int result[] = new int[words.length];
         for(int i = words.length-1; i >= 0 ; i--){
-            minCost[i] = cost[i][words.length-1];
+            minCost[i] = spaceLeft[i][words.length-1];
             result[i] = words.length;
             for(int j=words.length-1; j > i; j--){
-                if(cost[i][j-1] == Integer.MAX_VALUE){
+                if(spaceLeft[i][j-1] == Integer.MAX_VALUE){
                     continue;
                 }
-                if(minCost[i] > minCost[j] + cost[i][j-1]){
-                    minCost[i] = minCost[j] + cost[i][j-1];
+                if(minCost[i] > minCost[j] + spaceLeft[i][j-1]){
+                    minCost[i] = minCost[j] + spaceLeft[i][j-1];
                     result[i] = j;
                 }
             }
