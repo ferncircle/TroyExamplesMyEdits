@@ -3,6 +3,8 @@ package com.troy.dynamic;
 import org.junit.Assert;
 import org.junit.Test;
 
+import com.troy.dynamic.gotit.PalindromePartition;
+
 import java.util.ArrayList;
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.troy.dynamic;
+package com.troy.dynamic.gotit;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -63,15 +63,15 @@ public class CoinChanging {
 	/**
 	 * Space efficient DP solution(Harder to understand)
 	 */
-	public int numberOfSolutionsOnSpace(int total, int arr[]){
+	public int numberOfSolutionsOnSpace(int total, int coins[]){
 
 		int temp[] = new int[total+1];
 
 		temp[0] = 1;
-		for(int i=0; i < arr.length; i++){
+		for(int i=0; i < coins.length; i++){
 			for(int j=1; j <= total ; j++){        	
-				if(j >= arr[i]){
-					temp[j] += temp[j-arr[i]];
+				if(j >= coins[i]){
+					temp[j] += temp[j-coins[i]];
 				}
 			}
 			System.out.println(Arrays.toString(temp));

@@ -1,4 +1,4 @@
-package com.troy.dynamic;
+package com.troy.dynamic.gotit;
 
 /**
  * Given a preorder sequence how many unique trees can be created

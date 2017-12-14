@@ -1,4 +1,4 @@
-package com.troy.dynamic;
+package com.troy.dynamic.gotit;
 
 import java.util.*;
 
@@ -56,15 +56,15 @@ public class PalindromePartition {
 
         int[] cut = new int[str.length()];
         boolean isPal[][] = new boolean[str.length()][str.length()];
-        for (int gap = 1; gap < str.length(); gap++) {
-            int min = gap;
-            for (int j = 0; j <= gap; j++) {
-                if (str.charAt(gap) == str.charAt(j) && (gap <= j + 1 || isPal[gap - 1][j + 1])) {
-                    isPal[gap][j] = true;
-                    min = Math.min(min, j == 0 ? 0 : 1 + cut[j - 1]);
+        for (int s = 1; s < str.length(); s++) {
+            int min = s;
+            for (int p = 0; p <= s; p++) {
+                if (str.charAt(s) == str.charAt(p) && (s <= p + 1 || isPal[s - 1][p + 1])) {
+                    isPal[s][p] = true;
+                    min = Math.min(min, p == 0 ? 0 : 1 + cut[p - 1]);
                 }
             }
-            cut[gap] = min;
+            cut[s] = min;
         }
         return cut[str.length() - 1];
     }
